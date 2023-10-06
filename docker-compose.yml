@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  weather_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - weather_db
+    environment:
+      - DATABASE_URL=jdbc:postgresql://weather_db:5432/weather_db
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=gustavo10
+
+  weather_db:
+    container_name: weather_db
+    image: postgres:15.4
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=gustavo10
+      - POSTGRES_DB=weather_db
